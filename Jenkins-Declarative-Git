@@ -12,7 +12,11 @@ pipeline{
             }
         }
         
-        
+         stage('Nexus Deploy'){
+            steps{
+                sh script: 'mvn deploy'
+            }
+        }
         
     }
 }
