@@ -13,7 +13,22 @@ pipeline{
         stage("Maven Build"){
             steps{
                 sh "mvn clean package"
+                sh "mv target/*.war target/car-rentals.war"
             }
         }
+        stage("deploy-dev"){
+            sshagent(['tomcat-new']) {
+               sh """
+                    ssh -o StrictHostKeyChecking=no target/car-rentals.war  ec2-user@172.31.43.28:/opt/tomcat8/webapps/
+                    
+                    ssh ec2-user@172.31.43.28:/opt/tomcat8/bin/shutdown.sh
+                    
+                    ssh ec2-user@172.31.43.28:/opt/tomcat8/bin/startup.sh
+                   
+                   """
+            }
+        }
+        
+        
     }
 }
