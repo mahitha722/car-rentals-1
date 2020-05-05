@@ -6,18 +6,12 @@ pipeline{
     }
    
         stages{
-        stage('Maven Build'){
+        stage('Maven Package and Nexus Deploy'){
             steps{
-                sh script: 'mvn clean package'
+                sh script: 'mvn clean deploy'
             }
         }
-        
-         stage('Nexus Deploy'){
-            steps{
-                sh script: 'mvn deploy'
-            }
-        }
-        
+       
     }
 }
 
