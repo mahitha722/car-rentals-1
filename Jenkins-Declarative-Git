@@ -10,27 +10,21 @@ pipeline{
                 git credentialsId: 'mahitha722', url: 'https://github.com/mahitha722/car-rentals-1'
             }
         }
-        stage("Maven Build"){
+        stages{
+        stage('Maven Package and Nexus Deploy'){
             steps{
-                sh "mvn clean package"
-                sh "mv target/*.war  target/car-rentals.war"
+                sh script: 'mvn clean deploy'
             }
         }
-        stage("deploy-dev"){
-           steps{
-           
-            sshagent(['tomcat-new']) {
-               sh """
-                    ssh -o StrictHostKeyChecking=no target/car-rentals.war  ec2-user@172.31.43.28:/opt/tomcat8/webapps/
-                    
-                    ssh ec2-user@172.31.43.28:/opt/tomcat8/bin/shutdown.sh
-                    
-                    ssh ec2-user@172.31.43.28:/opt/tomcat8/bin/startup.sh
-                   
-                   """
-             }
-            
-           }
+        stage('Tomcat Dev'){
+            steps{
+                sshagent(['tomcat-dev']) {
+                    // copy war file to tomcat dev
+                    sh "scp -o StrictHostKeyChecking=no  target/car-rentals*.war  ${TOMCAT_HOST}:/opt/tomcat8/webapps/"
+                    sh "ssh ${TOMCAT_HOST} ${TOMCAT_SVC} stop"
+                    sh "ssh ${TOMCAT_HOST} ${TOMCAT_SVC} start"
+                }
+            }
         }
         
         
