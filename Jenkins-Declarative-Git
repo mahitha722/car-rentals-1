@@ -4,14 +4,9 @@ pipeline{
     environment{
         PATH = "/opt/maven3/bin:$PATH"
     }
-    stages{
-        stage("Git Checkout"){
-            steps{
-                git credentialsId: 'mahitha722', url: 'https://github.com/mahitha722/car-rentals-1'
-            }
-        }
+   
         stages{
-            stage('Maven Package and Nexus Deploy'){
+        stage('Maven Package and Nexus Deploy'){
             steps{
                 sh script: 'mvn clean deploy'
             }
@@ -30,4 +25,4 @@ pipeline{
         
     }
 }
-}
+
