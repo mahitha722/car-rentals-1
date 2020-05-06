@@ -1,14 +1,14 @@
 pipeline{
     agent any
     
-        environment{
-        
-            PATH = "/opt/maven3/bin:$PATH"
-        }
     stages{
     
         stage('Maven Package and Nexus Deploy'){
             
+        environment{
+        
+            PATH = "/opt/maven3/bin:$PATH"
+        }
             steps{
                 sh script: 'maven clean deploy'
             }
