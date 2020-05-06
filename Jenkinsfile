@@ -18,8 +18,8 @@ pipeline{
             steps{
                sshagent(['tomcat-new']) {
                    sh "ssh -o StrictHostKeyChecking=no target/car-rentals*.war ec2-user@172.31.43.28:/opt/tomcat8/webapps"
-                   sh "ssh ec2-user@172.31.43.28 /usr/sbin/sevice tomcat shutdown.sh
-                   sh "ssh ec2-user@172.31.43.28 /usr/sbin/sevice tomcat startup.sh
+                   sh "ssh ec2-user@172.31.43.28 /usr/sbin/sevice tomcat stop"
+                   sh "ssh ec2-user@172.31.43.28 /usr/sbin/sevice tomcat start"
                 } 
             
             }
