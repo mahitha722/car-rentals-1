@@ -13,7 +13,7 @@ pipeline{
             PATH = "/opt/maven3/bin:$PATH"
            }
             steps{
-                sh script: 'mvn clean deploy hari'
+                sh script: 'mvn clean deploy'
             }
           }
           
