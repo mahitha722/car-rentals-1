@@ -7,11 +7,11 @@ pipeline{
             TOMCAT_SVC = "/opt/tomcat8/bin/"
         }
     stages{
-        environment {
-            PATH = "/opt/maven3/bin:$PATH"
-    }
+       
         stage('Maven Package and Nexus Deploy'){
-        
+            environment {
+            PATH = "/opt/maven3/bin:$PATH"
+           }
             steps{
                 sh script: 'mvn clean deploy'
             }
