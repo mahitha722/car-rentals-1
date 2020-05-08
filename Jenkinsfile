@@ -29,5 +29,10 @@ pipeline{
           
           }
       }
-   
+    post {
+  failure {
+    // One or more steps need to be included within each condition's block.
+      echo "send email notification"
+  }
+}
 }
