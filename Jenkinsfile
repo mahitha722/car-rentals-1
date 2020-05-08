@@ -29,4 +29,10 @@ pipeline{
           
           }
       }
+    post {
+      failure {
+            echo "send email notification"
+      }
+    }
+
 }
