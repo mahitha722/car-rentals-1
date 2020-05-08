@@ -32,7 +32,9 @@ pipeline{
     post {
   failure {
     // One or more steps need to be included within each condition's block.
-      echo "send email notification"
+     mail body: 'Hi Developer,Your job failed',
+          subject: 'Job Failed',
+          to: 'mahithabommu22@gmail.com'
   }
 }
 }
