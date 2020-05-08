@@ -2,12 +2,14 @@ pipeline{
     agent any
      environment{
         
-            PATH = "/opt/maven3/bin:$PATH"
+            
             TOMCAT_HOST = "ec2-user@172.31.43.28"
             TOMCAT_SVC = "/opt/tomcat8/bin/"
         }
     stages{
-    
+        environment {
+            PATH = "/opt/maven3/bin:$PATH"
+    }
         stage('Maven Package and Nexus Deploy'){
         
             steps{
